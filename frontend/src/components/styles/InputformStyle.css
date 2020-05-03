@@ -1,0 +1,36 @@
+input[type="text"],
+textarea {
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid var(--dark);
+  transition: border-bottom 0.4s ease-in-out;
+  color: black;
+  width: 100%;
+  flex-grow: 1;
+}
+
+label {
+  color: black;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-bottom: 2px solid var(--indigo);
+  outline: none;
+}
+
+::placeholder {
+  color: black;
+}
+
+label {
+  font-size: smaller;
+  width: 100px;
+}
+
+.formCard {
+  display: flex;
+  margin: auto;
+  min-width: 250px;
+  max-width: 350px;
+}
