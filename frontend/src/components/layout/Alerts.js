@@ -13,7 +13,10 @@ export class Alerts extends Component {
     const { error, alert, message } = this.props;
     if (error !== prevProps.error) {
       // Ignoring all authentification error, they should not be displayed
-      if (error.status === 401) return;
+      if (error.status === 401 || error.status === 403) return;
+
+      // Ignoring Not Found and Methd Not Allowed error
+      if (error.status === 404 || error.status === 405) return;
 
       if (error.msg.message) {
         alert.error(`Message: ${error.msg.message.join()}`);
@@ -25,26 +28,32 @@ export class Alerts extends Component {
         return;
       }
 
-      // Displaying field error. Each field has a key
-      // and the value for each key is the error
-      if (Object.keys(error.msg)) {
-        // Maping keys (request fields to display names)
-        const mapKeyToName = (key) => {
-          const map = {
-            email: "Email",
-            username: "Username",
-            password: "Password",
-            password1: "Password",
-            password2: "Retyped password",
+      /** Wraping in a try/catch to not crash if incorrectly parserd
+      data it passed */
+      try {
+        /** Displaying field error. Each field has a key
+        and the value for each key is the error */
+        if (Object.keys(error.msg)) {
+          // Maping keys (request fields to display names)
+          const mapKeyToName = (key) => {
+            const map = {
+              email: "Email",
+              username: "Username",
+              password: "Password",
+              password1: "Password",
+              password2: "Retyped password",
+            };
+
+            if (map[key]) return map[key];
+            else return key;
           };
 
-          if (map[key]) return map[key];
-          else return key;
-        };
-
-        Object.keys(error.msg).forEach((key) => {
-          alert.error(`${mapKeyToName(key)}: ${error.msg[key].join(" ")}`);
-        });
+          Object.keys(error.msg).forEach((key) => {
+            alert.error(`${mapKeyToName(key)}: ${error.msg[key].join(" ")}`);
+          });
+        }
+      } catch (err) {
+        return;
       }
     }
 

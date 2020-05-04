@@ -49,7 +49,7 @@ export const login = (username, password) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: res.data,
+        payload: res.data.user,
       });
     })
     .catch((err) => {
@@ -84,7 +84,7 @@ export const register = ({ username, email, password1, password2 }) => (
     .then((res) => {
       dispatch({
         type: REGISTER_SUCCESS,
-        payload: res.data,
+        payload: res.data.user,
       });
     })
     .catch((err) => {

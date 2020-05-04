@@ -46,12 +46,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'todos',
-    'users',
     'api',
     'frontend',
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'auth.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -65,7 +64,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer'
+    'TOKEN_SERIALIZER': 'api.serializers.TokenSerializer'
 }
 
 CSRF_USE_SESSIONS = False

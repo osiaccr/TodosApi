@@ -1,6 +1,5 @@
 from rest_framework import permissions
 
-from users.models import CustomUser
 
 class IsOwner(permissions.BasePermission):
     """
