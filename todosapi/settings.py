@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # os.environ.get("DJANGO_DEBUG", "") != "False"
+DEBUG = True  # os.environ.get("DJANGO_DEBUG", "") != "False"
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", os.environ.get("DJANGO_HOST")]
 
@@ -45,12 +45,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'todos',
-    'users',
     'api',
     'frontend',
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'auth.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -64,7 +63,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer'
+    'TOKEN_SERIALIZER': 'api.serializers.TokenSerializer'
 }
 
 CSRF_USE_SESSIONS = False
